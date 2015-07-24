@@ -1,0 +1,16 @@
+{
+  "name": "ReactjsTest",
+  "version": "1.0.0",
+  "description": "ReactjsTest",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christophe Coenraets <ccoenraets@gmail.com> (http://coenraets.org/)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.3",
+    "socket.io": "^1.3.5",
+    "request": "~2.11.4"
+  }
+}

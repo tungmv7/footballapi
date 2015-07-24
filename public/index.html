@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<script src="../build/react.js"></script>-->
+    <!--<script src="../build/JSXTransformer.js"></script>-->
+
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+
+
+    <script src="../build/jquery.min.js"></script>
+
+</head>
+<body>
+<div id="example"></div>
+<div id="sport"></div>
+<script type="text/jsx">
+
+    var Test = React.createClass({
+        render: function() {
+            return (
+              <div class="test">
+                  <h1>Hello Tung</h1>
+              </div>
+            );
+        }
+    });
+
+    React.render(<Test />, document.getElementById("example"));
+
+
+    var LeagueTable = React.createClass({
+        getInitialState: function() {
+            return {
+                source: "https://api.crowdscores.com/api/v1/",
+                api_key: "cacdc8be3bec4246a684243ede998313",
+                method: "GET"
+            };
+        },
+        getData: function() {
+            $.ajax({
+                url: this.state.source + this.props.mode,
+                type: this.state.method,
+                data: {api_key: this.state.api_key},
+                success: function(e) {
+                    e.forEach(function(data) {
+                        if (data.name == "Premier League" && data.schedStart >= 1408143600000) {
+                            console.log(data.dbid);
+                            SPORTAPI.getLeagueTables('round_id=' + data.dbid);
+                        }
+                    });
+                }
+            });
+        },
+        componentDidMount: function() {
+        },
+        render: function() {
+            return (
+                    <div>test</div>
+            )
+        }
+    });
+
+    React.render(<LeagueTable mode="rounds" name="Premier League" schedStart="1408143600000" />, document.getElementById("sport"));
+
+
+    var LikeButton = React.createClass({
+        getInitialState: function() {
+            return {liked: false};
+        },
+        handleClick: function(event) {
+            this.setState({liked: !this.state.liked});
+        },
+        render: function() {
+            var text = this.state.liked ? 'like' : 'haven\'t liked';
+            return (
+                    <p onClick={this.handleClick}>
+                        You {text} this. Click to toggle.
+                    </p>
+            );
+        }
+    });
+
+    React.render(
+            <LikeButton />,
+            document.getElementById('test')
+    );
+
+</script>
+
+<div id="test"></div>
+
+</body>
+</html>
